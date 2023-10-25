@@ -97,20 +97,18 @@ def main():
         if not base_output_filepath:
             base_output_filepath = "extracted_questions_and_answers"
 
-    extracted_data = []  # This will hold all data from all files
+    extracted_data = []
     for filepath in filepaths:
         with open(filepath, "r", encoding="utf-8") as file:
             content = file.read()
         soup = BeautifulSoup(content, 'html.parser')
         extracted_data.extend(extract_data_from_soup(soup))
 
-    # Offer to remove duplicates
     user_response = input(
         "\nWould you like to remove duplicates? (yes/no): ").strip().lower()
     if user_response in ['yes', 'y']:
         extracted_data = remove_duplicates(extracted_data)
 
-    # Ask for the desired format
     user_response = input(
         "\nWhich format would you like to save the data in? (txt/csv): ").strip().lower()
 
